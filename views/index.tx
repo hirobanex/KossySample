@@ -1,0 +1,8 @@
+: cascade base
+: around content -> {
+<h1><a href="/edit/<: $page.rid :>"><: $page.title :></a></h1>
+<p>
+<: $page.formatted_body | mark_raw :>
+</p>
+: }
+

@@ -1,0 +1,24 @@
+: cascade base
+: around content -> {
+
+: if $c.req.path_info == '/search' {
+    : block form | fillinform( $c.req ) -> {
+    <form action="/search" method="get" class="well form-search">
+        <input type="text" name="keyword" class="input-medium search-query" /> <input type="submit" value="search" class="btn" />
+    </form>
+    : }
+: }
+
+: include "include/pager.tx";
+
+<ul>
+: for $list -> $row {
+<li><a href="/<: $row.rid :>"><: $row.title :></a> (<: $row.updated_at.strftime('%Y/%m/%d %H:%M:%S') :>) </li>
+: }
+</ul>
+
+: include "include/pager.tx";
+
+
+: }
+

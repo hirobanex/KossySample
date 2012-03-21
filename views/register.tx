@@ -1,0 +1,52 @@
+: cascade base
+: around content -> {
+
+:my $is_register = ($c.req.path_info == '/register' || $c.req.path_info == '/add') ? 1 : 0;
+
+<h1><: $is_register ? 'New Entry....' : 'Edit Entry....' :></h1>
+
+: if $validator {
+    <div class="alert-error">
+    <p>System Error!</p>
+    <ul>
+        :for $validator.messages -> $message {
+            <li><: $message :></li>
+        : }
+    </ul>
+    </div>
+: }
+
+: block form |  fillinform( $page || $c.req ) -> {
+
+<form action="<: $is_register ? '/add': '/edit/'~$page.rid :>" method="POST" class="form-horizontal">
+<fieldset>
+<table>
+    <tr>
+    <th>title</th>
+    <td>
+        <input type="text" name="title" size="20" />
+    </td>
+    </tr>
+    <tr>
+    <th>body</th>
+    <td>
+        <textarea name="body" class="input-xlarge span8" rows="15"></textarea>
+    </td>
+    </tr>
+    <tr>
+    <td colspan="2">
+        <div class="form-actions">
+:if !$is_register {        
+            <input type="hidden" name="current_updated_at" value="<: $page.updated_at.epoch :>" />
+: }
+            <input type="submit" value="Submit" class="btn-primary btn-large" />
+        </div>
+    </td>
+    </tr>
+</table>
+</fieldset>
+</form>
+: }
+
+: }
+

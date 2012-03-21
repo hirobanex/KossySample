@@ -1,0 +1,15 @@
+<div class="pagination">
+<ul>
+: my $page = $c.req.param('page') || 1;
+: if $page != 1 {
+: my $pre_page_num = $page - 1;
+    <li><a href="<: $c.req.uri_for('/list',[page => $pre_page_num]) :>">&lt;PRE</a></li>
+: }
+
+: if $has_next_page {
+: my $next_page_num = $page + 1;
+   <li><a href="<: $c.req.uri_for('/list',[page => $next_page_num]) :>">NEXT&gt;</a></li>
+: }
+</ul>
+</div>
+

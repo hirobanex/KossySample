@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dcterms="http://purl.org/rss/1.0/modules/dcterms/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+    <channel>
+        <generator>Kurenai</generator>
+        <dc:creator>Kurenai</dc:creator>
+        <webMaster>Kurenai</webMaster>
+        <pubDate><: $today.strftime("%a, %d %b %Y %H:%M:%S %z") :></pubDate>
+
+: for $list -> $row {
+        <item>
+            <description><: $row.body :></description>
+            <dc:date><: $row.created_at.strftime("%a, %d %b %Y %H:%M:%S %z") :></dc:date>
+            <title><: $row.title :></title>
+            <pubDate><: $row.created_at.strftime("%a, %d %b %Y %H:%M:%S %z") :></pubDate>
+            <content:encoded><: $row.body :></content:encoded>
+            <dcterms:modified><: $row.updated_at.strftime("%a, %d %b %Y %H:%M:%S %z") :></dcterms:modified>
+        </item>
+: }
+
+    </channel>
+</rss>
+
